@@ -1,4 +1,4 @@
-function [ root ] = Speed_Poly_roots(Polynomial,x0,tol,iter)
+function [ root ] = Speed_Newton(Polynomial,x0,tol,iter)
 %this function caluculates the roots of a polynomial using the Quick_Poly
 %and Quick_Poly_Derivative functions. Polynomial must be a list of the
 %coefficients of the Polynomial. x0 is the starting guess, tol is the
@@ -6,7 +6,8 @@ function [ root ] = Speed_Poly_roots(Polynomial,x0,tol,iter)
 %to perform.
 k = 0;
 while k < iter
-    x1 = x0 -Quick_Poly(Polynomial,x0)/Quick_Poly_Derivative(Polynomial,x0);
+    derivative_coefficients = Quick_Poly_Derivative(Polynomial,x0);
+    x1 = x0 -Quick_Poly(Polynomial,x0)/Quick_Poly(derivative_coefficients,x0);
     if abs(x1-x0) < tol
         root = x1;
         fprintf('zero is %d \n',x1);

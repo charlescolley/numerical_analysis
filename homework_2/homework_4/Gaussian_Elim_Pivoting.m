@@ -1,4 +1,4 @@
-function [ Pivot_matrix,Reduced,Reduced_RHS ] = Gaussian_Elim_Pivoting(matrix,RHS)
+function [ Pivot_matrix,Reduced,Reduced_RHS,x] = Gaussian_Elim_Pivoting(matrix,RHS)
 %{
 Charlie Colley
 11-5-14
@@ -45,17 +45,9 @@ for j = 1:column_count %iterate through columns
         for k = j:column_count; %update rest of columns 
             Reduced(i,k) = Reduced(i,k)-ratio*Reduced(j,k);
         end
-        Reduced_RHS(i,1) = RHS(i) - ratio*RHS(j);
+        Reduced_RHS(i,1) = Reduced_RHS(i) - ratio*Reduced_RHS(j);
     end
+x = Backwards_substitution(Reduced,Reduced_RHS);
 end
 
-%Backwards Substitution 
-%{
-for i = row_count:-1:1
-    for j = i:-1:1
-        ratio = 1/Reduced(i,j);
-        Reduced_RHS(j) = ratio*Reduced_RHS(j);
-    end
-en
-%}
 

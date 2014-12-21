@@ -7,12 +7,12 @@ column_count = size(matrix,2);
 for i = row_count:-1:1
     for j = column_count:-1:i
         if(i ~= j) %subtract solved variables from equation
-            RHS(i) = RHS(i)-matrix(i,j)*RHS(i+1);
+            RHS(i) = RHS(i)-matrix(i,j)*RHS(j);
             matrix(i,j) = 0;
         else
-        denominator = matrix(i,j);
-        matrix(i,j) = matrix(i,j)/denominator; %turn entry to a 1
-        RHS(i) = RHS(i)/denominator;
+            denominator = matrix(i,j);
+            matrix(i,j) = matrix(i,j)/denominator; %turn entry to a 1
+            RHS(i) = RHS(i)/denominator;
         end
     end
 end
